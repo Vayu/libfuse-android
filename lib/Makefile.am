@@ -39,6 +39,10 @@ libfuse_la_LDFLAGS = @libfuse_libs@ -version-number 2:8:7 \
 	-Wl,--version-script,$(srcdir)/fuse_versionscript
 
 libulockmgr_la_SOURCES = ulockmgr.c
+if HAVE_PTHREAD
 libulockmgr_la_LDFLAGS = -pthread -version-number 1:0:1
+else
+libulockmgr_la_LDFLAGS = -version-number 1:0:1
+endif
 
 EXTRA_DIST = fuse_versionscript

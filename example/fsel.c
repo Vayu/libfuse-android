@@ -271,7 +271,9 @@ int main(int argc, char *argv[])
 
 	ret = fuse_main(argc, argv, &fsel_oper, NULL);
 
+#if !defined(__ANDROID__)
 	pthread_cancel(producer);
+#endif
 	pthread_join(producer, NULL);
 
 	return ret;

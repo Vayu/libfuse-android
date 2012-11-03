@@ -1041,7 +1041,11 @@ static void convert_statfs_compat(struct fuse_statfs_compat1 *compatbuf,
 	stbuf->f_bavail	 = compatbuf->blocks_free;
 	stbuf->f_files	 = compatbuf->files;
 	stbuf->f_ffree	 = compatbuf->files_free;
+#if defined(__ANDROID__)
+	stbuf->f_namelen = compatbuf->namelen;
+#else
 	stbuf->f_namemax = compatbuf->namelen;
+#endif
 }
 
 static void convert_statfs_old(struct statfs *oldbuf, struct statvfs *stbuf)
@@ -1052,7 +1056,11 @@ static void convert_statfs_old(struct statfs *oldbuf, struct statvfs *stbuf)
 	stbuf->f_bavail	 = oldbuf->f_bavail;
 	stbuf->f_files	 = oldbuf->f_files;
 	stbuf->f_ffree	 = oldbuf->f_ffree;
+#if defined(__ANDROID__)
+	stbuf->f_namelen = oldbuf->f_namelen;
+#else
 	stbuf->f_namemax = oldbuf->f_namelen;
+#endif
 }
 
 static int fuse_compat_statfs(struct fuse_fs *fs, const char *path,
@@ -1382,7 +1390,11 @@ int fuse_fs_statfs(struct fuse_fs *fs, const char *path, struct statvfs *buf)
 
 		return fuse_compat_statfs(fs, path, buf);
 	} else {
+#if defined(__ANDROID__)
+		buf->f_namelen = 255;
+#else
 		buf->f_namemax = 255;
+#endif
 		buf->f_bsize = 512;
 		return 0;
 	}

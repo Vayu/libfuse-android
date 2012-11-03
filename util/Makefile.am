@@ -11,7 +11,11 @@ mount_fuse_SOURCES = mount.fuse.c
 
 ulockmgr_server_SOURCES = ulockmgr_server.c
 ulockmgr_server_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -D_REENTRANT 
+if HAVE_PTHREAD
 ulockmgr_server_LDFLAGS = -pthread
+else
+ulockmgr_server_LDFLAGS =
+endif
 
 install-exec-hook:
 	-chmod u+s $(DESTDIR)$(bindir)/fusermount

@@ -57,7 +57,13 @@ AC_CHECK_FUNCS([fork setxattr fdatasync])
 AC_CHECK_MEMBERS([struct stat.st_atim])
 AC_CHECK_MEMBERS([struct stat.st_atimespec])
 
+AM_CONDITIONAL(HAVE_PTHREAD, test "$target_os" != "linux-androideabi")
+if test "$target_os" != "linux-androideabi"; then
 libfuse_libs="-pthread"
+else
+libfuse_libs=""
+fi
+
 LIBS=
 AC_SEARCH_LIBS(dlopen, [dl])
 AC_SEARCH_LIBS(clock_gettime, [rt])

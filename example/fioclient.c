@@ -10,7 +10,11 @@
 */
 
 #include <sys/types.h>
+#if defined(__ANDROID__)
+#include <fcntl.h>
+#else
 #include <sys/fcntl.h>
+#endif
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <stdio.h>

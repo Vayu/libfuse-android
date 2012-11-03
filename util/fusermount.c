@@ -67,18 +67,22 @@ static gid_t oldfsgid;
 
 static void drop_privs(void)
 {
+#if !defined(__ANDROID__)
 	if (getuid() != 0) {
 		oldfsuid = setfsuid(getuid());
 		oldfsgid = setfsgid(getgid());
 	}
+#endif
 }
 
 static void restore_privs(void)
 {
+#if !defined(__ANDROID__)
 	if (getuid() != 0) {
 		setfsuid(oldfsuid);
 		setfsgid(oldfsgid);
 	}
+#endif
 }
 
 #ifndef IGNORE_MTAB

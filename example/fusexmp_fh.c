@@ -116,9 +116,13 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
 	(void) path;
 	if (offset != d->offset) {
+#if defined(__ANDROID__)
+		return -1;
+#else
 		seekdir(d->dp, offset);
 		d->entry = NULL;
 		d->offset = offset;
+#endif
 	}
 	while (1) {
 		struct stat st;
@@ -133,7 +137,11 @@ static int xmp_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 		memset(&st, 0, sizeof(st));
 		st.st_ino = d->entry->d_ino;
 		st.st_mode = d->entry->d_type << 12;
+#if defined(__ANDROID__)
+		nextoff = -1;
+#else
 		nextoff = telldir(d->dp);
+#endif
 		if (filler(buf, d->entry->d_name, &st, nextoff))
 			break;
 

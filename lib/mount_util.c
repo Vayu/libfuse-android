@@ -20,6 +20,9 @@
 #include <sys/wait.h>
 #include <sys/mount.h>
 #include <sys/param.h>
+#if defined(__ANDROID__)
+#include <paths.h>
+#endif
 
 static int mtab_needs_update(const char *mnt)
 {
