@@ -29,7 +29,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#if defined(__ANDROID__)
+#if defined(NO_STATVFS)
   #include <sys/vfs.h>
   #define statvfs statfs
   #define fstatvfs fstatfs

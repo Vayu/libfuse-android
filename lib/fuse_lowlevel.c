@@ -235,7 +235,7 @@ static void convert_statfs(const struct statvfs *stbuf,
 	kstatfs->bavail	 = stbuf->f_bavail;
 	kstatfs->files	 = stbuf->f_files;
 	kstatfs->ffree	 = stbuf->f_ffree;
-#if defined(__ANDROID__)
+#if defined(NO_STATVFS)
 	kstatfs->namelen = stbuf->f_namelen;
 #else
 	kstatfs->namelen = stbuf->f_namemax;
@@ -892,7 +892,7 @@ static void do_statfs(fuse_req_t req, fuse_ino_t nodeid, const void *inarg)
 		req->f->op.statfs(req, nodeid);
 	else {
 		struct statvfs buf = {
-#if defined(__ANDROID__)
+#if defined(NO_STATVFS)
 			.f_namelen = 255,
 #else
 			.f_namemax = 255,
@@ -1774,7 +1774,7 @@ static void convert_statfs_compat(const struct statfs *compatbuf,
 	buf->f_bavail	= compatbuf->f_bavail;
 	buf->f_files	= compatbuf->f_files;
 	buf->f_ffree	= compatbuf->f_ffree;
-#if defined(__ANDROID__)
+#if defined(NO_STATVFS)
 	buf->f_namelen	= compatbuf->f_namelen;
 #else
 	buf->f_namemax	= compatbuf->f_namelen;
