@@ -30,14 +30,20 @@
 #include <utime.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#if defined(__ANDROID__)
+
+#if defined(NO_STATVFS)
   #include <sys/vfs.h>
   #define statvfs statfs
   #define fstatvfs fstatfs
-#include <pthread.h>
 #else
 #include <sys/statvfs.h>
 #endif
+
+#if defined (__ANDROID__)
+#include <pthread.h>
+#endif
+
+
 #include <sys/uio.h>
 
 #ifdef __cplusplus

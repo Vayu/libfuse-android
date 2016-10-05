@@ -1,3 +1,6 @@
+FUSE_UNVERSIONED {
+};
+
 FUSE_2.2 {
 	global:
 		fuse_destroy;
