@@ -3989,11 +3989,11 @@ struct fuse *fuse_new_compat1(int fd, int flags,
 				      11);
 }
 
-FUSE_SYMVER(".symver fuse_exited,__fuse_exited@");
-FUSE_SYMVER(".symver fuse_process_cmd,__fuse_process_cmd@");
-FUSE_SYMVER(".symver fuse_read_cmd,__fuse_read_cmd@");
-FUSE_SYMVER(".symver fuse_set_getcontext_func,__fuse_set_getcontext_func@");
-FUSE_SYMVER(".symver fuse_new_compat2,fuse_new@");
+FUSE_SYMVER(".symver fuse_exited,__fuse_exited@FUSE_UNVERSIONED");
+FUSE_SYMVER(".symver fuse_process_cmd,__fuse_process_cmd@FUSE_UNVERSIONED");
+FUSE_SYMVER(".symver fuse_read_cmd,__fuse_read_cmd@FUSE_UNVERSIONED");
+FUSE_SYMVER(".symver fuse_set_getcontext_func,__fuse_set_getcontext_func@FUSE_UNVERSIONED");
+FUSE_SYMVER(".symver fuse_new_compat2,fuse_new@FUSE_UNVERSIONED");
 FUSE_SYMVER(".symver fuse_new_compat22,fuse_new@FUSE_2.2");
 
 #endif /* __FreeBSD__ */
